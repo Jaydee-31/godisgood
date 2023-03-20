@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Gate;
 
 class UpdateUserRequest extends FormRequest
 {
+     /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize()
+    {
+        return Gate::allows('user_access');
+    }
     
     public function rules()
     {
@@ -27,13 +34,5 @@ class UpdateUserRequest extends FormRequest
                 'array',
             ],
         ];
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize()
-    {
-        return Gate::allows('user_access');
     }
 }
