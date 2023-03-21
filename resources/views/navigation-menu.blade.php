@@ -30,6 +30,14 @@
                     </x-nav-link>
                 </div>
                 @endcan
+
+                @can('task_access')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('blogs.index') }}" :active="request()->routeIs('blogs.*')">
+                        Blogs
+                    </x-nav-link>
+                </div>
+                @endcan
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -154,6 +162,25 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            @can('task_access')
+            <x-responsive-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
+                {{ __('Tasks') }}
+            </x-responsive-nav-link>
+            @endcan
+            
+            @can('user_access')
+            <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                {{ __('Users') }}
+            </x-responsive-nav-link>
+            @endcan
+
+            @can('task_access')
+            <x-responsive-nav-link href="{{ route('blogs.index') }}" :active="request()->routeIs('blogs.*')">
+                {{ __('Blogs') }}
+            </x-responsive-nav-link>
+            @endcan
+        
         </div>
 
         <!-- Responsive Settings Options -->

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+Route::get('/',[HomeController::class, 'index'])->name('welcome');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'dash'], function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -26,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('tasks', \App\Http\Controllers\TasksController::class);
 
     Route::resource('users', \App\Http\Controllers\UsersController::class);
+    Route::resource('blogs', \App\Http\Controllers\BlogController::class);
 });
 
 // Route::middleware([

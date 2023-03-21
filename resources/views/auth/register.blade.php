@@ -47,8 +47,14 @@
             @endif
 
             <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                <label for="dhaa" class="flex items-center">
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Already registered?') }}</span>
+                </label>   
+            
+                <a href="{{ route('login') }}" class="text-sm">
+                    <span data-e2e="bottom-sign-up" class="ml-2 text-sm text-sky-500 dark:text-sky-400">
+                        Login
+                    </span>
                 </a>
 
                 <x-button class="ml-4">
