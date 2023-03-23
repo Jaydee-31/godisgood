@@ -48,7 +48,9 @@ class BlogSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $blog = new Blog();
             $blog->title = $faker->sentence();
-            $blog->content = $faker->paragraph();
+            // $blog->content = $faker->paragraphs(10, true);
+            // $blog->content = $faker->text(1500);
+            $blog->content = $faker->words(500, true);
             $blog->author_id = $users->random()->id;
             $blog->save();
         }

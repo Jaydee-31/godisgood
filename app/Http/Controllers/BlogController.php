@@ -52,23 +52,23 @@ class BlogController extends Controller
         ]);
         // Blog::create($request->validated());
 
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('success', 'Seccess');
     }
 
     public function show(Blog $blog)
     {
-        if(auth()->user()->id == 1){
-            return view('blogs.show', compact('blog'));
-        } else {
-            if($blog->author_id === auth()->id()){
-                return view('blogs.show', compact('blog'));
-            }else{
-                abort(Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot View Blog');
-            }
-        }
-        // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // if(auth()->user()->id == 1){
+        //     return view('blogs.show', compact('blog'));
+        // } else {
+        //     if($blog->author_id === auth()->id()){
+        //         return view('blogs.show', compact('blog'));
+        //     }else{
+        //         abort(Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot View Blog');
+        //     }
+        // }
+        // // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        // return view('blogs.show', compact('blog'));
+        return view('blogs.show', compact('blog'));
     }
 
     public function edit(Blog $blog)
@@ -94,7 +94,7 @@ class BlogController extends Controller
             'content' => $request->input('content'),
         ]);
     
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('success', 'Seccess');
         // $blog->update($request->validated());
 
         // return redirect()->route('blogs.index');
@@ -124,7 +124,7 @@ class BlogController extends Controller
         //     }
         // }
 
-        return redirect()->route('blogs.index');
+        return redirect()->route('blogs.index')->with('destroyed', 'Seccess');
     }
     
 }

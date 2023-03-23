@@ -23,4 +23,14 @@ class HomeController extends Controller
         return view('dashboard', compact('blogs'));
     }
 
+    public function show(Blog $blog)
+    {
+       
+           
+                return view('blogs.show', compact('blog'));
+
+        // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        // return view('blogs.show', compact('blog'));
+    }
 }

@@ -16,7 +16,8 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with('roles')->get();
+        // $users = User::with('roles')->get();
+        $users = User::with('roles')->paginate(5);
 
         return view('users.index', compact('users'));
     }
@@ -37,7 +38,8 @@ class UsersController extends Controller
         $user = User::create($request->validated());
         $user->roles()->sync($request->input('roles', []));
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success','User created successfully.');
+            
     }
 
     public function show(User $user)
@@ -73,6 +75,7 @@ class UsersController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('destroyed','User deleted successfully.');
     }
+    
 }

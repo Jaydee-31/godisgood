@@ -8,81 +8,99 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="block mb-8">
-                    <a href="{{ route('blogs.create') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Create Blog</a>
+                    <x-button-link href="{{ route('blogs.create') }}" class="">
+                        {{ __('Create a Blog') }}
+                    </x-button-link>                    
                 </div>
-                <div class="flex flex-col">
-                    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 
-                                <table class="min-w-full divide-y divide-gray-200 w-full">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                ID
-                                            </th>
-                                            <th scope="col" width="100"class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Title
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Content
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Author
-                                            </th>
-                                            <th scope="col" width="200" class="px-6 py-3 bg-gray-50">
-                
-                                            </th>
-                                        </tr>
-                                    </thead>
-                
-                                    <tbody class="bg-white divide-y divide-gray-200">                              
-                                        @foreach ($blogs as $blog)
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {{ $blog->id }}
-                                            </td>
-                
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {{ $blog->title }}
-                                            </td>
-                
-                                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 max-w-xs overflow-ellipsis truncate">
-                                                {{ $blog->content }}
-                                            </td>
+                @if ($message = Session::get('success'))
+                    <x-alert-success>
+                        {{ $message }}
+                    </x-alert-success>
+                @endif
 
-                
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                {{ $blog->author->name }}
-                                                {{-- {{ Auth::user()->name }} --}}
-                                            </td>
-                
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <a href="{{ route('blogs.show', $blog->id) }}" class="text-blue-600 hover:text-blue-900 mb-2 mr-2">View</a>
-                                                @can('blog_access')
-                                                <a href="{{ route('blogs.edit', $blog->id) }}" class="text-indigo-600 hover:text-indigo-900 mb-2 mr-2">Edit</a>
-                                                @endcan
-                                                <form class="inline-block" action="{{ route('blogs.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <input type="submit" class="text-red-600 hover:text-red-900 mb-2 mr-2" value="Delete">
-                                                </form>
-                                            </td>
-                                        </tr>                                        
-                                        @endforeach
-                                    </tbody>
-                                </table> 
-                
+                @if ($message = Session::get('destroyed'))
+                    <x-alert-delete>
+                        {{ $message }}
+                    </x-alert-delete>
+                @endif
+
+                @if($blogs->isEmpty())
+                <x-alert-empty class="bg-gray-50 border dark:bg-gray-800 border-gray-400 dark:border-gray-500 text-gray-700  dark:text-gray-400">
+                    No Blogs found.
+                </x-alert-empty>
+                @else  
+                    <div class="flex flex-col">
+                        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                                <div class="shadow overflow-hidden border-b border-gray-200 dark:border-gray-900 sm:rounded-xl">
+                                
+                                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 w-full">
+                                        <thead class="bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 ">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                    ID
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                    Title
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                    Content
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                    Author
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                    
+                                                </th>
+                                            </tr>
+                                        </thead>
+                    
+                                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">                           
+                                            @foreach ($blogs as $blog)
+                                            <tr>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                                    {{ $blog->id }}
+                                                </td>
+                    
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                                    {{ $blog->title }}
+                                                </td>
+                    
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white max-w-xs overflow-ellipsis truncate">
+                                                    {{ $blog->content }}
+                                                </td>
+
+                    
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                                    {{ $blog->author->name }}
+                                                    {{-- {{ Auth::blog()->name }} --}}
+                                                </td>
+                    
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                    <a href="{{ route('blogs.show', $blog->id) }}" class="text-sky-500 dark:text-sky-400 hover:text-sky-900 mb-2 mr-2">View</a>
+                                                    <a href="{{ route('blogs.edit', $blog->id) }}" class="text-blue-600 dark:text-blue-500 hover:text-blue-900 mb-2 mr-2">Edit</a>
+                                                    <form class="inline-block" action="{{ route('blogs.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 cursor-pointer mb-2 mr-2" value="Delete">
+                                                    </form>
+                                                </td>
+                                            </tr>                                        
+                                            @endforeach
+                                        </tbody>
+                                    </table> 
+                    
+                                </div>
+                                <div class="items-center px-4 py-3 bg-gray-50 dark:bg-gray-900 text-right mt-3 shadow sm:rounded-xl">
+                                    {{ $blogs->onEachSide(5)->links() }}  
+                                </div>
+                            
                             </div>
-                            <div class="items-center bg-white px-4 py-3 bg-gray-50 dark:bg-gray-100 text-right mt-3 shadow sm:rounded-lg">
-                                {{ $blogs->onEachSide(5)->links() }}  
-                            </div>
-                           
+                        
                         </div>
-                       
                     </div>
-                </div>
-        
+                @endif
         </div>
     </div>
 </x-app-layout>

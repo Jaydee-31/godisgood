@@ -32,7 +32,7 @@ class TasksController extends Controller
     {
         Task::create($request->validated());
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task added.');
     }
 
     public function show(Task $task)
@@ -53,7 +53,7 @@ class TasksController extends Controller
     {
         $task->update($request->validated());
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task updated.');
     }
 
     public function destroy(Task $task)
@@ -62,6 +62,6 @@ class TasksController extends Controller
 
         $task->delete();
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('destroyed', 'Task deleted.');
     }
 }
