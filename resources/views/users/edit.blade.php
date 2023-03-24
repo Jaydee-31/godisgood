@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit User') }}
+            {{ __('Edit') }}     {{ $user->name }}
         </h2>
     </x-slot>
     <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="mx-5 md:col-span-2">
-            <form method="post" action="{{ route('blogs.update', $user->id) }}">
+            <form method="post" action="{{ route('users.update', $user->id) }}">
                 @csrf
                 @method('PUT')
                 <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">

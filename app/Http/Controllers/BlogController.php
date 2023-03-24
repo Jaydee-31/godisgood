@@ -13,23 +13,39 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends Controller
 {
+    // public function index()
+    // {
+    //     // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+    //     // $blogs = Blog::all();
+
+    //     // return view('blogs.index', compact('blogs'));
+
+    //     if(auth()->user()->id == 1){
+    //         $blogs = Blog::orderByDesc('created_at')->paginate(5);
+    //     } else {
+    //         $blogs = Blog::where('author_id', auth()->id())->orderByDesc('created_at')->paginate(5);
+    //     }
+        
+    //     return view('blogs.index', compact('blogs'));
+        
+    // }
     public function index()
     {
-        // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        // $blogs = Blog::all();
-
-        // return view('blogs.index', compact('blogs'));
-
-        if(auth()->user()->id == 1){
+        $user = auth()->user();
+        $roles = $user->roles;
+        
+        if ($roles->contains('id', 1)) {
             $blogs = Blog::orderByDesc('created_at')->paginate(5);
         } else {
-            $blogs = Blog::where('author_id', auth()->id())->orderByDesc('created_at')->paginate(5);
+            $blogs = Blog::where('author_id', $user->id)->orderByDesc('created_at')->paginate(5);
         }
-        
+
         return view('blogs.index', compact('blogs'));
-        
     }
+
 
     public function create()
     {
@@ -52,7 +68,7 @@ class BlogController extends Controller
         ]);
         // Blog::create($request->validated());
 
-        return redirect()->route('blogs.index')->with('success', 'Seccess');
+        return redirect()->route('blogs.index')->with('success', "The blog post '{$request->title}' has been added successfully.");
     }
 
     public function show(Blog $blog)
@@ -79,11 +95,10 @@ class BlogController extends Controller
             if($blog->author_id === auth()->id()){
                 return view('blogs.edit', compact('blog'));
             }else{
-                abort(Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot Edit a Blog');
+                abort(Response::HTTP_FORBIDDEN, '403 Forbidden |  Cannot the Blog');
             }
         }
         // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         
     }
 
@@ -94,7 +109,7 @@ class BlogController extends Controller
             'content' => $request->input('content'),
         ]);
     
-        return redirect()->route('blogs.index')->with('success', 'Seccess');
+        return redirect()->route('blogs.index')->with('success', "The blog post has been updated successfully.");
         // $blog->update($request->validated());
 
         // return redirect()->route('blogs.index');
@@ -112,7 +127,7 @@ class BlogController extends Controller
             // Admin can delete any blog
             $blog->delete();
         } else {
-            abort_if($blog->author_id != auth()->id(), Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot Delete a others Blog');
+            abort_if($blog->author_id != auth()->id(), Response::HTTP_FORBIDDEN, 'Forbidden |  Could not delete blog');
             $blog->delete();
         }
         // else{
@@ -124,7 +139,7 @@ class BlogController extends Controller
         //     }
         // }
 
-        return redirect()->route('blogs.index')->with('destroyed', 'Seccess');
+        return redirect()->route('blogs.index')->with('destroyed', "The blog post '{$blog->title}' has been deleted successfully.");
     }
     
 }

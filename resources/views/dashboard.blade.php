@@ -9,6 +9,9 @@
         <div class="py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8"> --}}
 <x-app-layout>
+    @section('title')
+        Dashboard
+    @endsection
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}

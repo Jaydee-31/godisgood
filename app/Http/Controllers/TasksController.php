@@ -32,7 +32,8 @@ class TasksController extends Controller
     {
         Task::create($request->validated());
 
-        return redirect()->route('tasks.index')->with('success', 'Task added.');
+        return redirect()->route('tasks.index')->banner('Subscription created successfully.');
+        // return redirect()->route('tasks.index')->with('success', 'Task added.');
     }
 
     public function show(Task $task)

@@ -1,4 +1,8 @@
 <x-form-section submit="updateProfileInformation">
+    @section('title')
+        Profile Settings
+    @endsection
+
     <x-slot name="title">
         {{ __('Profile Information') }}
     </x-slot>

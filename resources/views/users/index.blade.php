@@ -48,7 +48,7 @@
                                             Email
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                            Email Verified At
+                                            Date Added
                                         </th>
                                         <th scope="col" class="px-6 py-3  text-left text-xs font-medium uppercase tracking-wider">
                                             Roles
@@ -74,14 +74,20 @@
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                                {{ $user->email_verified_at }}
+                                                {{ $user->created_at->format('Y-m-d') }}
                                             </td>
 
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                                                 @foreach ($user->roles as $role)
-                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-gray-900 text-gray-800 dark:text-gray-400">
-                                                        {{ $role->title }} 
+                                                    @if ($user->id == auth()->id())
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gree-100 dark:bg-green-900 text-gray-800 dark:text-gray-400">
+                                                        Myself - {{ $role->title }} 
                                                     </span>
+                                                    @else
+                                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-gray-900 text-gray-800 dark:text-gray-400">
+                                                        {{ $role->title }}                                                    
+                                                    </span>                
+                                                    @endif
                                                 @endforeach
                                             </td>
 
