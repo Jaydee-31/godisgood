@@ -1,16 +1,24 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create your Blog') }}
+            {{ __('Create blog post') }}
         </h2>
     </x-slot>
 
     <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
         <div class="mx-5 md:col-span-2">
-            <form method="post" action="{{ route('blogs.store') }}">
+            <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">
                     <div class="p-5  bg-white dark:bg-gray-800">
+
+                        <div class="px-2 py-3 sm:px-5 sm:py-3">
+                            <x-label for="image" value="{{ __('Blog Cover') }}" />
+                            <x-input id="image" class="mt-1 block w-full text-lg text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" 
+                            type="file" name="image"/>
+                            <x-input-error for="image" class="mt-1" />
+                        </div>
+                       
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <x-label for="title" value="{{ __('Tittle') }}" />
                             <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" autofocus/>
@@ -22,6 +30,7 @@
                             <x-textarea id="content" class="block mt-1 w-full" type="text" name="content" :value="old('content')"/></textarea>
                             <x-input-error for="content" class="mt-1" />
                         </div>
+                        
 
                     </div> 
 
@@ -33,7 +42,7 @@
                         </a>
         
                         <x-button class="ml-5">
-                            {{ __('Create') }}
+                            {{ __('Upload') }}
                         </x-button>
                     </div>
                 </div>

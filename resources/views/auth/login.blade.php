@@ -42,7 +42,7 @@
                 </div>              
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-5">
                 <label for="dhaa" class="flex items-center">
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Don’t have an account? ') }}</span>
                 </label>   

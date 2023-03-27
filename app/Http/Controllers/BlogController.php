@@ -51,22 +51,50 @@ class BlogController extends Controller
     {
         abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('blogs.create');
+        return view('blogs.create', ['content' => old('content')]);
     }
 
-    public function store(Request $request)
+    public function store(StoreBlogRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required',
+        //     'content' => 'required',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+        // ]);
+   
+        $input = $request->all();
+        $input['author_id'] = auth()->user()->id;
 
-        $blog = Blog::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'author_id' => auth()->user()->id,
-        ]);
-        // Blog::create($request->validated());
+   
+        if ($image = $request->file('image')) {
+            $destinationPath = 'storage/blog-photos/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }
+     
+        Blog::create($input);
+        
+        // $request->validate([
+        //     'title' => 'required',
+        //     'content' => 'required',
+        //     'image' => 'required',
+        // ]);
+
+        // if ($image = $request->file('image')) {
+        //     $destinationPath = 'images/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $request['image'] = "$profileImage";
+        // }
+        // $blog = Blog::create([
+        //     'title' => $request->title,
+        //     'content' => $request->content,
+        //     'image' => $request->image,
+        //     'author_id' => auth()->user()->id,
+        // ]);
+
+        // // Blog::create($request->validated());
 
         return redirect()->route('blogs.index')->with('success', "The blog post '{$request->title}' has been added successfully.");
     }
@@ -104,10 +132,23 @@ class BlogController extends Controller
 
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-        $blog->update([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
-        ]);
+   
+        $input = $request->all();
+   
+        if ($image = $request->file('image')) {
+            $destinationPath = 'storage/blog-photos/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }else{
+            unset($input['image']);
+        }
+           
+        $blog->update($input);
+        // $blog->update([
+        //     'title' => $request->input('title'),
+        //     'content' => $request->input('content'),
+        // ]);
     
         return redirect()->route('blogs.index')->with('success', "The blog post has been updated successfully.");
         // $blog->update($request->validated());

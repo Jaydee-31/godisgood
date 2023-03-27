@@ -21,6 +21,7 @@ class BlogTableSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             $blog = new Blog();
+            $blog->image = $faker->image('public/storage/blog-photos',400,300, null, false) ;
             $blog->title = $faker->sentence();
             // $blog->content = $faker->paragraphs(10, true);
             // $blog->content = $faker->text(1500);

@@ -46,14 +46,22 @@
                                                     ID
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                    Image
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                                     Title
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                                     Content
                                                 </th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                                    Author
-                                                </th>
+                                                
+                                                @can('admin_access')
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                                        Author
+                                                    </th>
+                                                @endcan
+                                               
+
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                     
                                                 </th>
@@ -66,6 +74,10 @@
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                                                     {{ $blog->id }}
                                                 </td>
+
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                                    <img src="storage\blog-photos\{{$blog->image}}" class="w-16 rounded-lg">
+                                                </td>
                     
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                                                     {{ $blog->title }}
@@ -75,11 +87,13 @@
                                                     {{ $blog->content }}
                                                 </td>
 
-                    
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                                    {{ $blog->author->name }}
-                                                    {{-- {{ Auth::blog()->name }} --}}
-                                                </td>
+                                                @can('admin_access')
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                                                        {{ $blog->author->name }}
+                                                        {{-- {{ Auth::blog()->name }} --}}
+                                                    </td>
+                                                @endcan
+                                               
                     
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                     <a href="{{ route('blogs.show', $blog->id) }}" class="text-sky-500 dark:text-sky-400 hover:text-sky-900 mb-2 mr-2">View</a>

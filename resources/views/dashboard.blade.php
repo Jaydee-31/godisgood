@@ -29,7 +29,7 @@
                     <a href="{{ route('blogs.show', $blog->id) }}" class="scale-100 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-xl shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                         <div class="bg-white border border-gray-200 rounded-xl shadow dark:bg-gray-800 dark:border-gray-700">
                             <div class="rounded-t-lg">
-                                <img class="rounded-t-lg object-none h-32 w-96" src="https://source.unsplash.com/random/480x360" alt="" />
+                                <img class="rounded-t-lg object-none h-32 w-96" src="\storage\blog-photos\{{$blog->image}}" alt="" />
                             </div>
                             <div class="p-6">
                                 <h2 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">{{ $blog['title'] }}</h2>

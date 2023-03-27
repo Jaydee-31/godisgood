@@ -10,7 +10,7 @@
         
                 
                     <div class="flex flex-col max-w-3xl mx-auto overflow-hidden rounded-xl sm:rounded-xl">
-                        <img src="https://source.unsplash.com/random/480x360" alt="" class="w-full h-60 sm:h-96 shadow dark:bg-gray-500">
+                        <img src="\storage\blog-photos\{{$blog->image}}" alt="" class="w-full h-60 sm:h-96 shadow dark:bg-gray-500">
                         <div class="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-2xl sm:px-10 sm:mx-12 rounded-xl sm:rounded-xl shadow-lg bg-gray-50 dark:bg-gray-800">
                             <div class="space-y-2">
                                 <a rel="noopener noreferrer" href="#" class="inline-block text-2xl font-semibold sm:text-3xl  dark:text-gray-100"">

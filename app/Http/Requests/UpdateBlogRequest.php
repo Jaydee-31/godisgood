@@ -12,7 +12,7 @@ class UpdateBlogRequest extends FormRequest
      */
     public function authorize()
     {
-        return Gate::allows('task_access');
+        return Gate::allows('blog_access');
     }
     
     public function rules()
@@ -26,6 +26,7 @@ class UpdateBlogRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // 'author_id' => [
             //     'required',
             // ],
