@@ -5,7 +5,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Edit') }}     {{ $user->name }}
+            {{ __('Edit') }} {{ $user->name }}
         </h2>
     </x-slot>
     <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
@@ -54,7 +54,6 @@
                                 Cancel
                             </span>
                         </a>
-        
                         <x-button class="ml-5">
                             {{ __('Update') }}
                         </x-button>

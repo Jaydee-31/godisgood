@@ -36,7 +36,6 @@
                             <x-input-error for="content" class="mt-1" />
                         </div>                        
                         
-
                     </div> 
 
                     <div class="flex items-center sm:justify-end justify-center px-10 py-5 bg-gray-50 dark:bg-gray-800 text-right ">

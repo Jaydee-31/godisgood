@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-    User Management
+        User Management
     @endsection
 
     <x-slot name="header">

@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index(Request $request)
     {
@@ -27,7 +27,6 @@ class UsersController extends Controller
                 ->orWhere('email', 'LIKE', "%{$searchQuery}%");
         }
 
-        // $users = User::with('roles')->get();
         $users = $users->with('roles')->paginate(5);
 
         return view('users.index', compact('users'));
@@ -53,7 +52,6 @@ class UsersController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        // $user = User::create($request->validated());
         $user->roles()->sync($request->input('roles', []));
 
         return redirect()->route('users.index')->with('success','User created successfully.');
@@ -86,8 +84,6 @@ class UsersController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-
-        // $user->update($request->validated());
         
         $user->roles()->sync($request->input('roles', []));
 

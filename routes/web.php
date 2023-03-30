@@ -21,27 +21,11 @@ Route::get('/', function () {
 
 Route::get('/',[HomeController::class, 'index'])->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/homepage',[HomeController::class, 'dash'], function () {
+Route::middleware(['auth:sanctum', 'verified'])->get('/homepage',[HomeController::class, 'home'], function () {
     return view('homepage');
 })->name('homepage');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('users', \App\Http\Controllers\UsersController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('blogs', \App\Http\Controllers\BlogController::class);
 });
-
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified'
-// ])->group(function () {
-//     Route::get('/homepage', function () {
-//         return view('homepage');
-//     })->name('homepage');
-// });
-
-// Route::group(['middleware' => 'auth'], function () {
-
-//     Route::resource('users', \App\Http\Controllers\UsersController::class);
-// });
-
