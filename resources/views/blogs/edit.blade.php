@@ -19,8 +19,8 @@
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <x-label for="image" value="{{ __('Cover') }}" />
-                            <x-input type="file" name="image" id="image" class="mt-1 block w-full text-lg text-gray-900 border border-gray-300 cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size"
-                                   value="{{ old('image',  $blog->image) }}" />
+                            <x-input type="file" name="image" id="image" class="mt-1 block w-full text-lg"
+                                    value="{{ old('image',  $blog->image) }}" />
                             <x-input-error for="image" class="mt-1" />
                         </div>
   
@@ -33,7 +33,8 @@
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">                    
                             <x-label for="content" value="{{ __('Content') }}" />
-                            <x-textarea name="content" id="content" class="mt-1 block w-full" rows="5">{{ old('content', $blog->content) }}</x-textarea>
+                            <x-textarea name="content" id="content" class="mt-1 block w-full" rows="5">
+                                {{ old('content', $blog->content) }}</x-textarea>
                             <x-input-error for="content" class="mt-1" />
                         </div>
                     </div> 

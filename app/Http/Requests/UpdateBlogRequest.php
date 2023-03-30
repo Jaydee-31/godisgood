@@ -19,7 +19,7 @@ class UpdateBlogRequest extends FormRequest
     {
         return [
             'title' => 'required|min:10|max:255',
-            'content' =>'required|min:10|max:255',
+            'content' =>'required|min:10',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             // 'author_id' => [
             //     'required',
