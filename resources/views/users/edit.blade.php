@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('title')
+        Edit User
+    @endsection
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Edit') }}     {{ $user->name }}
@@ -10,7 +14,7 @@
                 @csrf
                 @method('PUT')
                 <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">
-                    <div class="p-5  bg-white dark:bg-gray-800">
+                    <div class="p-5  bg-white dark:bg-gray-800 dark:bg-opacity-50">
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <x-label for="title" value="{{ __('Tittle') }}" />
                             <x-input type="text" name="name" id="name" class="form-input rounded-md shadow-sm mt-1 block w-full"

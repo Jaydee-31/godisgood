@@ -6,18 +6,29 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $users = User::query();
+
+        // If a search query is present, filter the results
+        if ($request->input('search')) {
+            $searchQuery = $request->input('search');
+            $users->where('id', 'LIKE', "%{$searchQuery}%")
+                ->orWhere('name', 'LIKE', "%{$searchQuery}%")
+                ->orWhere('email', 'LIKE', "%{$searchQuery}%");
+        }
+
         // $users = User::with('roles')->get();
-        $users = User::with('roles')->paginate(5);
+        $users = $users->with('roles')->paginate(5);
 
         return view('users.index', compact('users'));
     }
@@ -35,7 +46,14 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user = User::create($request->validated());
+        
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        // $user = User::create($request->validated());
         $user->roles()->sync($request->input('roles', []));
 
         return redirect()->route('users.index')->with('success','User created successfully.');
@@ -63,7 +81,14 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $user->update($request->validated());
+        $user ->update([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+
+        // $user->update($request->validated());
+        
         $user->roles()->sync($request->input('roles', []));
 
         return redirect()->route('users.index');

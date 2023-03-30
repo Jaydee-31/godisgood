@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TasksController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 
@@ -22,13 +21,11 @@ Route::get('/', function () {
 
 Route::get('/',[HomeController::class, 'index'])->name('welcome');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[HomeController::class, 'dash'], function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/homepage',[HomeController::class, 'dash'], function () {
+    return view('homepage');
+})->name('homepage');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('tasks', \App\Http\Controllers\TasksController::class);
-
     Route::resource('users', \App\Http\Controllers\UsersController::class);
     Route::resource('blogs', \App\Http\Controllers\BlogController::class);
 });
@@ -38,14 +35,12 @@ Route::group(['middleware' => 'auth'], function () {
 //     config('jetstream.auth_session'),
 //     'verified'
 // ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-//     Route::resource('tasks', TasksController::class);
+//     Route::get('/homepage', function () {
+//         return view('homepage');
+//     })->name('homepage');
 // });
 
 // Route::group(['middleware' => 'auth'], function () {
-//     Route::resource('tasks', \App\Http\Controllers\TasksController::class);
 
 //     Route::resource('users', \App\Http\Controllers\UsersController::class);
 // });

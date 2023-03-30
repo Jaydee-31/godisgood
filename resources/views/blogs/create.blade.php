@@ -1,4 +1,9 @@
 <x-app-layout>
+
+    @section('title')
+        Create Blog
+    @endsection
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Create blog post') }}
@@ -10,7 +15,7 @@
             <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">
-                    <div class="p-5  bg-white dark:bg-gray-800">
+                    <div class="p-5 bg-white dark:bg-gray-800 dark:bg-opacity-50">
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <x-label for="image" value="{{ __('Blog Cover') }}" />
@@ -27,9 +32,9 @@
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <x-label for="content" value="{{ __('Content') }}" />
-                            <x-textarea id="content" class="block mt-1 w-full" type="text" name="content" :value="old('content')"/></textarea>
+                            <x-textarea name="content" id="content" class="mt-1 block w-full" rows="5">{{ old('content') }}</x-textarea>
                             <x-input-error for="content" class="mt-1" />
-                        </div>
+                        </div>                        
                         
 
                     </div> 

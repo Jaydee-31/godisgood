@@ -6,6 +6,7 @@ use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Http\Requests\DeleteBlogRequest;
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -30,17 +31,26 @@ class BlogController extends Controller
     //     return view('blogs.index', compact('blogs'));
         
     // }
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $blogs = Blog::query();
+
+        // If a search query is present, filter the results
+        if ($request->input('search')) {
+            $searchQuery = $request->input('search');
+            $blogs->where('title', 'LIKE', "%{$searchQuery}%")
+                ->orWhere('content', 'LIKE', "%{$searchQuery}%");
+        }
 
         $user = auth()->user();
         $roles = $user->roles;
         
         if ($roles->contains('id', 1)) {
-            $blogs = Blog::orderByDesc('created_at')->paginate(5);
+            $blogs = $blogs->orderByDesc('created_at')->paginate(5);
         } else {
-            $blogs = Blog::where('author_id', $user->id)->orderByDesc('created_at')->paginate(5);
+            $blogs = $blogs->where('author_id', $user->id)->orderByDesc('created_at')->paginate(5);
         }
 
         return view('blogs.index', compact('blogs'));
@@ -116,8 +126,11 @@ class BlogController extends Controller
     }
 
     public function edit(Blog $blog)
-    {
-        if(auth()->user()->id == 1){
+    { 
+        // $user = auth()->user();
+        // $roles = $user->roles;
+        
+        if (auth()->user()->roles->contains('id', 1)) {
             return view('blogs.edit', compact('blog'));
         } else {
             if($blog->author_id === auth()->id()){
@@ -164,7 +177,7 @@ class BlogController extends Controller
 
         // return redirect()->route('blogs.index');
 
-        if(auth()->user()->id == 1){
+        if (auth()->user()->roles->contains('id', 1)) {
             // Admin can delete any blog
             $blog->delete();
         } else {

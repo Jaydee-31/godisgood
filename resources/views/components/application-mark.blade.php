@@ -1,7 +1,2 @@
+<img src="{{ asset('assets/image/logo-br.png') }}" class="object-center w-10" />
 
-
-@if(config('app.theme') != 'dark')
-<img class=" object-center w-24" src="assets/image/logo-1.png" >
-@else
-    <img class=" object-center w-24" src="assets/image/logo-light.png" >
-@endif

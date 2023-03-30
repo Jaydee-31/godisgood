@@ -13,21 +13,33 @@ class HomeController extends Controller
     // }
     public function index()
     {
-        $blogs = Blog::with('author')->orderByDesc('created_at')->get();
+        $blogs = Blog::with('author')->orderByDesc('created_at')->take(7)->get();
         return view('welcome', compact('blogs'));
     }
+    
 
-    public function dash()
+    public function dash(Request $request)
     {
-        $blogs = Blog::with('author')->orderByDesc('created_at')->get();
-        return view('dashboard', compact('blogs'));
+        $blogs = Blog::query();
+
+        // If a search query is present, filter the results
+        if ($request->input('search')) {
+            $searchQuery = $request->input('search');
+            $blogs->where('title', 'LIKE', "%{$searchQuery}%")
+                ->orWhere('content', 'LIKE', "%{$searchQuery}%");
+        }
+
+        $blogs = $blogs->with('author')->orderByDesc('created_at')->get();
+
+        // $blogs = Blog::with('author')->orderByDesc('created_at')->get();
+        return view('homepage', compact('blogs'));
     }
 
     public function show(Blog $blog)
     {
        
            
-                return view('blogs.show', compact('blog'));
+        return view('blogs.show', compact('blog'));
 
         // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

@@ -19,6 +19,11 @@ module.exports = {
         },
     },
 
+    variants: {
+        background:['responsive', 'fucos', 'hover', 'active'],
+        fontSize:['responsive', 'hover'],
+    },
+
     plugins: [
         require('@tailwindcss/line-clamp'),
         require('@tailwindcss/forms'), 

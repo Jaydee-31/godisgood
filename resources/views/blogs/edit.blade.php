@@ -1,4 +1,8 @@
 <x-app-layout>
+    @section('title')
+    Edit Blog
+    @endsection
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Edit Blog Post') }}
@@ -11,7 +15,7 @@
                 @csrf
                 @method('PUT')
                 <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">
-                    <div class="p-5  bg-white dark:bg-gray-800">
+                    <div class="p-5  bg-white dark:bg-gray-800 dark:bg-opacity-50">
                         {{-- @if ($blog->image)
                         <div class="px-2 py-3 sm:px-5 sm:py-3">
                             <img src="/storage/blog-photos/{{ $blog->image }}" alt="{{ $blog->title }}" class="w-full">
@@ -58,7 +62,7 @@
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">                    
                             <x-label for="content" value="{{ __('Content') }}" />
-                            <textarea name="content" id="content" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm mt-1 block w-full">{{ old('content', $blog->content) }}</textarea>
+                            <x-textarea name="content" id="content" class="mt-1 block w-full" rows="5">{{ old('content', $blog->content) }}</x-textarea>
                             <x-input-error for="content" class="mt-1" />
                         </div>
                     </div> 
