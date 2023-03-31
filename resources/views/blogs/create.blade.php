@@ -39,9 +39,9 @@
 
                     <div class="flex items-center sm:justify-end justify-center px-10 py-5 bg-gray-50 dark:bg-gray-800 text-right ">
                         <a href="{{ route('blogs.index') }}" class="text-sm">
-                            <span data-e2e="bottom-sign-up" class="ml-2 text-sm text-sky-500 dark:text-sky-400">
+                            <x-span data-e2e="bottom-sign-up" class="ml-2 text-sm">
                                 Cancel
-                            </span>
+                            </x-span>
                         </a>
         
                         <x-button class="ml-5">

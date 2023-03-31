@@ -52,9 +52,9 @@
                 </label>   
             
                 <a href="{{ route('register') }}" class="text-sm">
-                    <span data-e2e="bottom-sign-up" class="ml-2 text-sm text-sky-500 dark:text-sky-400">
+                    <x-span data-e2e="bottom-sign-up" class="ml-2 text-sm">
                         Sign up
-                    </span>
+                    </x-span>
                 </a>
 
                 <x-button class="ml-4">

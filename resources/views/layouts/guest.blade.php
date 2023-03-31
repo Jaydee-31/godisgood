@@ -20,11 +20,23 @@
         <!-- Scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Styles -->
+        <link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
+        @livewireStyles
     </head>
     <body>
-        <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
-            {{ $slot }}
+        <div class="min-h-screen bg-pattern">
+            <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
+                {{ $slot }}
+            </div>
         </div>
+        @stack('modals')
+
+        @livewireScripts
+       
+            
     </body>
 </html>

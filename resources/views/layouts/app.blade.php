@@ -21,8 +21,9 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+		
         <!-- Styles -->
+		<link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
@@ -48,34 +49,7 @@
 				{{ $slot }}
 			</main>
 		</div>
-
-		<!-- Add the CSS code to a CSS file or the head section of the HTML document -->
-		<style>
-			@media (prefers-color-scheme: light) {
-				body {
-					background-color: #f9f9f9;
-				}
-
-				.bg-pattern {
-					background-color: #fff;
-					background-image: linear-gradient(to bottom left, #ffffff, #f6f6f6, #ffffff);
-				}
-
-			}
-
-			@media (prefers-color-scheme: dark) {
-				body {
-					background-color: #1a202c;
-				}
-
-				.bg-pattern {
-					background-color: rgb(54, 83, 20);
-					background-image: radial-gradient(at 5% 89%, rgb(17, 24, 39) 0, transparent 100%), radial-gradient(at 100% 100%, rgb(15, 23, 42) 0, transparent 100%), radial-gradient(at 100% 0%, rgb(15, 23, 42) 0, transparent 49%), radial-gradient(at 84% 17%, rgb(12, 74, 110) 0, transparent 26%), radial-gradient(at 17% 15%, rgb(15, 23, 42) 0, transparent 100%), radial-gradient(at 85% 15%, rgb(88, 28, 135) 0, transparent 42%), radial-gradient(at 80% 45%, rgb(0, 0, 0) 0, transparent 100%);
-				}
-		}
-		</style>
-
-
+		
         @stack('modals')
 
         @livewireScripts
