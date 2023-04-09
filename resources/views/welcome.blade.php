@@ -29,24 +29,22 @@
                         <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
-                                {{-- <a href="#home" class="block py-2 pr-4 pl-3 text-white rounded bg-sky-700 lg:bg-transparent lg:text-sky-700 lg:p-0 dark:text-white">Home</a> --}}
-                                <x-home-nav-link href="#home" :active="url()->current() == url('#home')">Home</x-home-nav-link>
+                                <a href="#home" class="nav-link active">Home</a>
+                            </li>
+
+                            <li>
+                                <a href="#features" class="nav-link">Features</a>
+                            </li>
+
+                            <li>
+                                <a href="#blogs" class="nav-link">Blogs</a>
                             </li>
                             
                             <li>
-                                <x-home-nav-link href="#blogs" :active="url()->current() == url('#blogs')">Blogs</x-home-nav-link>
+                                <a href="#about-us" class="nav-link">About</a>
                             </li>
                             <li>
-                                <x-home-nav-link href="#features" :active="url()->current() == url('#features')">Features</x-home-nav-link>
-                            </li>
-                            <li>
-                                <x-home-nav-link href="#about-us" :active="url()->current() == url('#about-us')">About</x-home-nav-link>
-                            </li>
-                            <li>
-                                <x-home-nav-link href="#team" :active="url()->current() == url()">Team</x-home-nav-link>
-                            </li>
-                            <li>
-                                <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-sky-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                                <a href="#team" class="nav-link">Team</a>
                             </li>
                         </ul>
                     </div>
@@ -154,7 +152,7 @@
         {{-- About Us --}}
 
         <section id="about-us" class="bg-gray-50 dark:bg-gray-800">
-            <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <div class="gap-16 items-center py-8 px-4 mx-auto h-screen max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
                 <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">Your Words Reign Supreme</h2>
                     <p class="mb-4 text-justify">At BlogRealm, we believe that everyone has a unique perspective to share, and we strive to empower voices that are often marginalized or underrepresented. We offer a user-friendly interface that makes it easy to create and publish blog posts, as well as interact with other writers through comments and social media sharing.

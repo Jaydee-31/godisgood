@@ -18,13 +18,14 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+		<script defer src="/assets/js/nav.js"></script> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Styles -->
-        <link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
+		<link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
+		<link href="{{asset('/assets/css/style.css')}}" rel="stylesheet">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
     <body>
@@ -34,9 +35,6 @@
             </div>
         </div>
         @stack('modals')
-
         @livewireScripts
-       
-            
     </body>
 </html>
