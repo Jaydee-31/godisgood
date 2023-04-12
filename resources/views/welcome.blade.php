@@ -1,6 +1,5 @@
 <x-guest-layout>
     <!-- component -->
-    <body>
         <header>
             <nav class="bg-white border-gray-200 px-4 lg:px-6px-2 sm:px-4 py-2.5 dark:bg-gray-800 fixed w-full z-20 top-0 left-0">
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -52,9 +51,9 @@
             </nav>
         </header>
 
-    {{-- Home --}}
+        {{-- Home --}}
 
-        <section id="home"class="bg-pattern py-20">
+        <section id="home"class="snap-start bg-pattern py-20">
             <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 ">
                 <div class="mr-auto place-self-center lg:col-span-7">
                     <h1 class="max-w-2xl mb-4 text-5xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white">Uniting Voices, Empowering Ideas</h1>
@@ -73,7 +72,7 @@
 
         {{-- Features Section --}}
 
-        <section id="features" class="bg-gray-50 dark:bg-gray-800 py-20">
+        <section id="features" class="snap-start bg-gray-50 dark:bg-gray-800 py-20">
             <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
                 <div class="max-w-screen-md mb-8 lg:mb-16">
                     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">Designed for creative mind like yours</h2>
@@ -109,24 +108,24 @@
 
         {{-- Recent Blogs Section --}}
 
-        <section id="blogs" class="bg-white dark:bg-gray-900">
+        <section id="blogs" class="snap-start bg-white dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
                 <div class="max-w-screen-md mb-8 lg:mb-16">
                     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">Recent blog posts</h2>
                     <p class="text-gray-500 sm:text-xl dark:text-gray-400">Here at BlogRealm we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
                 </div>
             
-                <div class="max-w-7xl mx-auto">
+                <div class="max-w-7xl">
             
-                    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         @foreach ($blogs as $blog)
 
-                        <div class="w-full max-w-md mx-auto overflow-hidden md:max-w-2xl dark:bg-gray-800 dark:border-gray-700 scale-100 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-xl shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.03] transition-all duration-400">
-                            <div class="md:flex">
-                            <div class="md:shrink-0 w-62 h-62">
+                        <div class="w-full max-w-md max-h-md mx-auto overflow-hidden md:max-w-2xl dark:bg-gray-800 dark:border-gray-700 scale-100 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-xl shadow-2xl shadow-gray-500/20 dark:shadow-none motion-safe:hover:scale-[1.03] transition-all duration-400">
+                            <div class="md:flex h-full">
+                            <div class="md:shrink-0 w-62">
                                 <img class="h-full w-full object-cover md:h-full md:w-48" src="/storage/blog-photos/{{$blog->image}}" alt="Modern building architecture">
                             </div>
-                            <div class="p-8">
+                            <div class="p-8 flex flex-col">
                                 <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center">
                                     <svg class="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
@@ -136,10 +135,13 @@
                                 
                                 <a href="#" class="block mt-1 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $blog->title }}</a>
                                 <p class="mt-2 text-gray-700 dark:text-gray-100 leading-relaxed line-clamp-3">{{$blog->content}}</p>
-                                <div class="mt-2 uppercase tracking-wide text-sm text-sky-600 dark:text-sky-400  font-semibold"> {{ $blog->author->name }}
+                                <div class="">
+                                    <div class="mt-2 uppercase tracking-wide text-sm text-sky-600 dark:text-sky-400  font-semibold"> {{ $blog->author->name }}
+                                    </div>
+                                    <p class="text-gray-600 text-xs dark:text-gray-400"> {{date('F d, Y', strtotime($blog->created_at->toDateString()))}}
+                                    </p>
                                 </div>
-                                <p class="text-gray-600 text-xs dark:text-gray-400"> {{date('F d, Y', strtotime($blog->created_at->toDateString()))}}
-                                </p>
+                               
                             </div>
                             </div>
                         </div>
@@ -151,8 +153,8 @@
 
         {{-- About Us --}}
 
-        <section id="about-us" class="bg-gray-50 dark:bg-gray-800">
-            <div class="gap-16 items-center py-8 px-4 mx-auto h-screen max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        <section id="about-us" class="snap-start bg-gray-50 dark:bg-gray-800">
+            <div class="gap-16 items-center py-8 px-4 mx-auto lg:h-screen max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
                 <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">Your Words Reign Supreme</h2>
                     <p class="mb-4 text-justify">At BlogRealm, we believe that everyone has a unique perspective to share, and we strive to empower voices that are often marginalized or underrepresented. We offer a user-friendly interface that makes it easy to create and publish blog posts, as well as interact with other writers through comments and social media sharing.
@@ -161,17 +163,17 @@
                     </p>
                     
                 </div>
-                <div class="grid grid-cols-2 gap-4 mt-8">
+                <div class="grid grid-cols-2 overflow-hidden gap-4 items-center mt-8 mb-8">
                     <img class="w-full rounded-lg motion-safe:hover:scale-[1.03] transition-all duration-400" src="assets\image\team\docu-1.jpg" alt="office content 1">
-                    <img class="mt-4 w-full lg:mt-10 rounded-lg motion-safe:hover:scale-[1.03] transition-all duration-400" src="\assets\image\team\docu-2.jpg" alt="office content 2">
+                    <img class="w-full rounded-lg motion-safe:hover:scale-[1.03] hover:rounded-none transition-all duration-400" src="\assets\image\team\docu-2.jpg" alt="office content 2">
                 </div>
             </div>
         </section>
 
         {{-- Team Section --}}
 
-        <section id="team" class="bg-white dark:bg-gray-900">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 ">
+        <section id="team" class="snap-start bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl md:py-16 md:px-6 ">
                 <div class="mx-auto max-w-screen-sm text-center mb-8 lg:mb-16">
                     <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">Our Team</h2>
                     <p class="text-gray-500 sm:text-xl dark:text-gray-400">Meet the BlogRealm team! We're a group of passionate individuals who believe in the power of storytelling to connect people and inspire change.</p>
@@ -297,6 +299,8 @@
                 </div>
             </div>
         </section>
+
+
 
         <section class="bg-gray-50 dark:bg-gray-900">
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">

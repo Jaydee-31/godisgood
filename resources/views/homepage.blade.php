@@ -3,7 +3,7 @@
         Home
     @endsection
     <x-slot name="header">
-        <div class="sm:flex sm:flex-none sm:justify-center lg:justify-end md:w-full">
+        <div class="sm:flex sm:justify-center md:justify-end w-full">
             <form class="flex" action="{{ route('homepage') }}" method="GET">  
                 <label for="search-input" class="sr-only">Search</label>
                 <div class="relative w-full">
@@ -25,10 +25,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-8">
                 @foreach ($blogs as $blog)
                     <div>
-                        <div class="max-w-md mx-auto h-full bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700 overflow-hidden motion-safe:hover:scale-[1.03] transition-all duration-400">
+                        <div class="flex flex-col place-content-between max-w-md mx-auto h-full bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700 overflow-hidden motion-safe:hover:scale-[1.03] transition-all duration-400">
                             <div class="">
                                 <a href="#">
-                                    <img class="rounded-t-lg object-cover md:max-h-32 h-auto md:w-full w-full" src="\storage\blog-photos\{{$blog->image}}"  alt="" />
+                                    <img class="rounded-t-lg object-cover md:max-h-48 h-auto md:w-full w-full" src="\storage\blog-photos\{{$blog->image}}"  alt="" />
                                 </a>
                             </div>
 
@@ -48,11 +48,12 @@
                                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-relaxed line-clamp-3">{{ $blog->content }}</p>
                                 
                             </div>
-                            <div class="px-5 pb-5 ">
-                                <a href="{{ route('blogs.show', $blog->id) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
+                            <div class="py-5 m-5 relative">
+                                <a href="{{ route('blogs.show', $blog->id) }}" class="absolute bottom-0 left-0 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-sky-700 rounded-lg hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
                                 Read more
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            </a></div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
