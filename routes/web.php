@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\RolesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/homepage',[HomeController
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('blogs', \App\Http\Controllers\BlogController::class);
+    // Roles
+    Route::resource('roles', \App\Http\Controllers\RolesController::class);
 });

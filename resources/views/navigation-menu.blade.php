@@ -24,6 +24,13 @@
                     </x-nav-link>
                 </div>
                 @endcan
+                @can('role_access')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('admin.roles.*')">
+                        Roles
+                    </x-nav-link>
+                </div>
+                @endcan
 
                 @can('blog_access')
                     
@@ -168,6 +175,11 @@
             @can('user_access')
             <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                 {{ __('Users') }}
+            </x-responsive-nav-link>
+            @endcan
+            @can('role_access')
+            <x-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('admin.roles.*')">
+                {{ __('Roles') }}
             </x-responsive-nav-link>
             @endcan
 
