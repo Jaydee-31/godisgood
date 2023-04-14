@@ -27,7 +27,7 @@
                                         Profile Photo
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-800 dark:bg-opacity-50 divide-y divide-gray-200 dark:divide-gray-900">
-                                        <img src="\storage\{{ $user->profile_photo_path }}" class="w-16 h-16 rounded-full">
+                                        <img src="\storage\{{ $user->profile_photo_path }}" class="max-w-16 max-h-16 rounded-full">
                                     </td>
                                 </tr>
                                 <tr class="border-b dark:border-gray-800">
@@ -72,12 +72,12 @@
                                 </tr>
                                 <tr class="border-b dark:border-gray-800">
                                     <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-900 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                                        Role
+                                        permission
                                     </th>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-800 dark:bg-opacity-50 divide-y divide-gray-200 dark:divide-gray-900">
-                                        @foreach ($user->roles as $role)
+                                        @foreach ($user->permissions as $permission)
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-gray-900 text-gray-800 dark:text-gray-400">
-                                                    {{ $role->title }}
+                                                    {{ $permission->title }}
                                                 </span>
                                         @endforeach
                                     </td>

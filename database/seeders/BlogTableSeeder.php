@@ -19,7 +19,7 @@ class BlogTableSeeder extends Seeder
         $users = User::all();
         $faker = FakerFactory::create();
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             $blog = new Blog();
             $blog->image = $faker->image('public/storage/blog-photos',400,300, null, false) ;
             $blog->title = $faker->sentence();

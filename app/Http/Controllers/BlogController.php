@@ -42,7 +42,7 @@ class BlogController extends Controller
 
     public function create()
     {
-        abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('blog_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('blogs.create', ['content' => old('content')]);
     }
@@ -75,7 +75,7 @@ class BlogController extends Controller
         //         abort(Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot View Blog');
         //     }
         // }
-        // // abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('blog_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('blogs.show', compact('blog'));
     }
@@ -83,7 +83,8 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     { 
         // Only admin can update all blogs
-        
+        abort_if(Gate::denies('blog_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if (auth()->user()->roles->contains('id', 1)) {
             return view('blogs.edit', compact('blog'));
         } else {
@@ -117,6 +118,8 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog)
     {
+        abort_if(Gate::denies('blog_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         if (auth()->user()->roles->contains('id', 1)) {
             // Admin can delete any blog
             $blog->delete();

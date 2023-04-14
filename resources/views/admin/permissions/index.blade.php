@@ -1,11 +1,11 @@
 <x-app-layout>
     @section('title')
-        role Management
+        permission Management
     @endsection
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Roles') }}
+            {{ __('Permissions') }}
         </h2>       
     </x-slot>
 
@@ -13,13 +13,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between mb-8 px-5 sm:px-0 ">
                 <div>
-                    <x-button-link href="{{ route('roles.create') }}" class="">
-                        {{ __('Add Role') }}
+                    <x-button-link href="{{ route('permissions.create') }}" class="">
+                        {{ __('Add permission') }}
                     </x-button-link>
                 </div>
                 
                 <div>
-                    <form class="flex" action="{{ route('roles.index') }}" method="GET">  
+                    <form class="flex" action="{{ route('permissions.index') }}" method="GET">  
                         <label for="search-input" class="sr-only">Search</label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -49,9 +49,9 @@
                 </x-alert-delete>
             @endif
 
-            @if($roles->isEmpty())
+            @if($permissions->isEmpty())
                 <x-alert-empty class="bg-gray-100 border border-gray-400 text-gray-700">
-                    No roles found.
+                    No permissions found.
                 </x-alert-empty>
             @else
                 <div class="flex flex-col">
@@ -68,38 +68,27 @@
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                             Title
                                         </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                            Permissions
-                                        </th>
                                         <th scope="col" class="px-6 py-3  text-left text-xs font-medium uppercase tracking-wider">
                                         
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800 dark:bg-opacity-50 divide-y divide-gray-200 dark:divide-gray-700">
-                                        @foreach($roles as $key => $role)
+                                        @foreach($permissions as $permission)
                                             <tr>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                                    {{ $role->id }}
+                                                    {{ $permission->id }}
                                                 </td>
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                                                    {{ $role->title }}
-                                                </td>
-
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white flex flex-wrap w-auto">
-                                                    @foreach($role->permissions as $key => $item)
-                                                         <span class="mr-2 mb-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-gray-900 text-gray-800 dark:text-gray-400">
-                                                            {{ $item->title }}
-                                                        </span>
-                                                    @endforeach
+                                                    {{ $permission->title }}
                                                 </td>
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             
-                                                    <a href="{{ route('roles.show', $role->id) }}" class="text-sky-500 dark:text-sky-400 hover:text-sky-900 mb-2 mr-2">View</a>
-                                                    <a href="{{ route('roles.edit', $role->id) }}" class="text-blue-600 dark:text-blue-500 hover:text-blue-900 mb-2 mr-2">Edit</a>
-                                                    <form class="inline-block" action="{{ route('roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                                                    <a href="{{ route('permissions.show', $permission->id) }}" class="text-sky-500 dark:text-sky-400 hover:text-sky-900 mb-2 mr-2">View</a>
+                                                    <a href="{{ route('permissions.edit', $permission->id) }}" class="text-blue-600 dark:text-blue-500 hover:text-blue-900 mb-2 mr-2">Edit</a>
+                                                    <form class="inline-block" action="{{ route('permissions.destroy', $permission->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                                                         <input type="hidden" name="_method" value="DELETE">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                         <input type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 cursor-pointer mb-2 mr-2" value="Delete">

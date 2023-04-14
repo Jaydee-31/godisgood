@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         
         for ($i = 0; $i < 8; $i++) {
             $users[] = [
-                'id'             => $i + 3,
+                'id'             => $i + 10,
                 'name'           => $faker->name(),
                 'email'          => $faker->unique()->safeEmail(),
                 'password'       => bcrypt($faker->password()),

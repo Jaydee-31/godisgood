@@ -24,10 +24,19 @@
                     </x-nav-link>
                 </div>
                 @endcan
+
                 @can('role_access')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('admin.roles.*')">
+                    <x-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
                         Roles
+                    </x-nav-link>
+                </div>                
+                @endcan
+
+                @can('permission_access')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('permissions.index') }}" :active="request()->routeIs('permissions.*')">
+                        Permissions
                     </x-nav-link>
                 </div>
                 @endcan
@@ -177,9 +186,16 @@
                 {{ __('Users') }}
             </x-responsive-nav-link>
             @endcan
+
             @can('role_access')
-            <x-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('admin.roles.*')">
+            <x-responsive-nav-link href="{{ route('roles.index') }}" :active="request()->routeIs('roles.*')">
                 {{ __('Roles') }}
+            </x-responsive-nav-link>
+            @endcan
+
+              @can('permission_access')
+            <x-responsive-nav-link href="{{ route('permissions.index') }}" :active="request()->routeIs('permissions.*')">
+                {{ __('Permissions') }}
             </x-responsive-nav-link>
             @endcan
 

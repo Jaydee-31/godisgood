@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\PermissionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('blogs', \App\Http\Controllers\BlogController::class);
     // Roles
-    Route::resource('roles', \App\Http\Controllers\RolesController::class);
+    Route::group(['prefix' => 'admin'], function () {
+        Route::resource('roles', RolesController::class);
+    });
+    
+    Route::group(['prefix' => 'admin'], function () {
+        Route::resource('permissions', PermissionsController::class);
+    });
 });

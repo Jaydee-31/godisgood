@@ -55,7 +55,7 @@ class RolesController extends Controller
         $role->update($request->all());
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect()->route('admin.roles.index')->with('success','Role updated successfully.');;
+        return redirect()->route('roles.index')->with('success','Role updated successfully.');;
     }
 
     public function show(Role $role)
