@@ -17,6 +17,7 @@ class PermissionRoleTableSeeder extends Seeder
             Permission::where('title', 'blog_access')->first()->id,
             Permission::where('title', 'blog_create')->first()->id,
             Permission::where('title', 'blog_edit')->first()->id,
+            Permission::where('title', 'blog_update')->first()->id,
             Permission::where('title', 'blog_show')->first()->id,
             Permission::where('title', 'blog_delete')->first()->id,
         ];

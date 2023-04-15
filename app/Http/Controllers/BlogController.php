@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, Blog $blog)
     {
-        abort_if(Gate::denies('blog_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->authorize('view', $blog);
 
         $blogs = Blog::query();
 
@@ -30,7 +30,7 @@ class BlogController extends Controller
         $user = auth()->user();
         $roles = $user->roles;
         
-        if ($roles->contains('id', 1)) {
+        if ($user->isAdmin()) {
             $blogs = $blogs->orderByDesc('created_at')->paginate(5);
         } else {
             $blogs = $blogs->where('author_id', $user->id)->orderByDesc('created_at')->paginate(5);
@@ -40,15 +40,17 @@ class BlogController extends Controller
     }
 
 
-    public function create()
+    public function create(Blog $blog)
     {
-        abort_if(Gate::denies('blog_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->authorize('create', $blog);
 
         return view('blogs.create', ['content' => old('content')]);
     }
 
-    public function store(StoreBlogRequest $request)
+    public function store(StoreBlogRequest $request, Blog $blog)
     {
+        $this->authorize('create', $blog);
+
         $input = $request->all();
         $input['author_id'] = auth()->user()->id;
 
@@ -66,40 +68,22 @@ class BlogController extends Controller
 
     public function show(Blog $blog)
     {
-        // if(auth()->user()->id == 1){
-        //     return view('blogs.show', compact('blog'));
-        // } else {
-        //     if($blog->author_id === auth()->id()){
-        //         return view('blogs.show', compact('blog'));
-        //     }else{
-        //         abort(Response::HTTP_FORBIDDEN, '403 Forbidden | User Cannot View Blog');
-        //     }
-        // }
-        abort_if(Gate::denies('blog_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->authorize('viewAny', $blog);
 
         return view('blogs.show', compact('blog'));
     }
 
     public function edit(Blog $blog)
     { 
-        // Only admin can update all blogs
-        abort_if(Gate::denies('blog_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->authorize('edit', $blog);
 
-        if (auth()->user()->roles->contains('id', 1)) {
-            return view('blogs.edit', compact('blog'));
-        } else {
-            if ($blog->author_id === auth()->id()) {
-                return view('blogs.edit', compact('blog'));
-            } else {
-                abort(Response::HTTP_FORBIDDEN, '403 Forbidden |  Cannot the Blog');
-            }
-        }
-        
+        return view('blogs.edit', compact('blog'));
     }
 
     public function update(UpdateBlogRequest $request, Blog $blog)
     {
-   
+        $this->authorize('update', $blog);
+
         $input = $request->all();
    
         if ($image = $request->file('image')) {
@@ -118,16 +102,9 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog)
     {
-        abort_if(Gate::denies('blog_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $this->authorize('delete', $blog);
 
-        if (auth()->user()->roles->contains('id', 1)) {
-            // Admin can delete any blog
-            $blog->delete();
-        } else {
-            // Allow user to delete his own blog
-            abort_if($blog->author_id != auth()->id(), Response::HTTP_FORBIDDEN, 'Forbidden |  Could not delete blog');
-            $blog->delete();
-        }
+        $blog->delete();
 
         return redirect()->route('blogs.index')->with('destroyed', "The blog post '{$blog->title}' has been deleted successfully.");
     }
