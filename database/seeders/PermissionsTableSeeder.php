@@ -9,129 +9,35 @@ class PermissionsTableSeeder extends Seeder
 {
     public function run()
     {
-        $permissions = [
-            [
-                'id'        => 1,
-                'title'     => 'admin_access',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 2,
-                'title'     => 'user_access',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 3,
-                'title'     => 'user_create',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 4,
-                'title'     => 'user_edit',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 5,
-                'title'     => 'user_show',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 6,
-                'title'     => 'blog_access',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 7,
-                'title'     => 'blog_create',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 8,
-                'title'     => 'blog_edit',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 9,
-                'title'     => 'blog_show',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'        => 10,
-                'title'     => 'blog_delete',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 11,
-                'title' => 'permission_create',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 12,
-                'title' => 'permission_edit',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 13,
-                'title' => 'permission_show',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 14,
-                'title' => 'permission_delete',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 15,
-                'title' => 'permission_access',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 16,
-                'title' => 'role_create',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 17,
-                'title' => 'role_edit',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 18,
-                'title' => 'role_show',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 19,
-                'title' => 'role_delete',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
-            [
-                'id'    => 20,
-                'title' => 'role_access',
-                'created_at'=> now(),
-                'updated_at'=> now(),
-            ],
+        $permissions = [            
+            ['title' => 'admin_access'],
+            ['title' => 'user_access'],
+            ['title' => 'user_create'],
+            ['title' => 'user_edit'],
+            ['title' => 'user_show'],
+            ['title' => 'user_delete'],
+            ['title' => 'blog_access'],
+            ['title' => 'blog_create'],
+            ['title' => 'blog_edit'],
+            ['title' => 'blog_show'],
+            ['title' => 'blog_delete'],
+            ['title' => 'permission_create'],
+            ['title' => 'permission_edit'],
+            ['title' => 'permission_show'],
+            ['title' => 'permission_delete'],
+            ['title' => 'permission_access'],
+            ['title' => 'role_create'],
+            ['title' => 'role_edit'],
+            ['title' => 'role_show'],
+            ['title' => 'role_delete'],
+            ['title' => 'role_access']
         ];
 
-        Permission::insert($permissions);
+        Permission::insert(array_map(function ($permission) {
+            return [                'title' => $permission['title'],
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        }, $permissions));
     }
 }

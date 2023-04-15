@@ -25,13 +25,19 @@
 
                         <div class="px-2 py-3 sm:px-5 sm:py-3">                    
                             <x-label for="title" value="{{ __('Role') }}" />
-                            <x-select name="permissions[]" id="permissions" class="form-multiselect mt-1 block w-full" multiple="multiple" required>
+                            <div class="flex items-center mb-4 mt-4">
+                                <input id="default-radio-1" type="radio" value="" name="default-radio" class="select-all w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="default-radio-1" class="ml-2 mr-4 font-medium text-xs text-gray-700 dark:text-gray-300">Select All</label>
+                                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="deselect-all w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="default-radio-2" class="ml-2 font-medium text-xs text-gray-700 dark:text-gray-300">Deselect All</label>
+                            </div>
+                            <x-select2 class="mt-1 block w-full" name="permissions[]" id="permissions">
                                 @foreach($permissions as $id => $permissions)
-                                    <option value="{{ $id }}" {{ (in_array($id, old('permissions', [])) || $role->permissions->contains($id)) ? 'selected' : '' }}>
-                                        {{ $permissions }}
-                                    </option>
-                                @endforeach
-                            </x-select>
+                                <option value="{{ $id }}" {{ (in_array($id, old('permissions', [])) || $role->permissions->contains($id)) ? 'selected' : '' }}>
+                                    {{ $permissions }}
+                                </option>
+                            @endforeach
+                            </x-select2>
                             <x-input-error for="roles" class="mt-1" />
                         </div>
                     </div> 

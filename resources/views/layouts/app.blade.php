@@ -17,11 +17,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 		
+        {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+	
         <!-- Styles -->
 		<link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
         @livewireStyles
@@ -54,12 +55,36 @@
 
         @livewireScripts
     </body>
-	<script>
+	{{-- <script>
 		$(document).ready(function() {
 			// Submit the search form when the search input field changes
 			$('#search-input').on('input', function() {
 				$('form#search-form').submit();
 			});
 		});
+	</script> --}}
+	
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
+	   <script>
+		$(document).ready(function () {
+		
+
+			$('.select-all').click(function () {
+				let $select2 = $(this).parent().siblings('.select2')
+				$select2.find('option').prop('selected', 'selected')
+				$select2.trigger('change')
+			})
+			$('.deselect-all').click(function () {
+				let $select2 = $(this).parent().siblings('.select2')
+				$select2.find('option').prop('selected', '')
+				$select2.trigger('change')
+			})
+
+			$('.select2').select2()
+
+			})
+
 	</script>
 </html>
