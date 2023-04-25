@@ -61,6 +61,11 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+             <div class="flex items-center justify-center mt-4">
+                <a class="justify-center" href="{{ url('auth/google') }}">
+                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="height:2.5em; border-radius:15px">
+                </a>
+            </div>
             
         </form>
     </x-authentication-card>
