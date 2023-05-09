@@ -1,58 +1,47 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
+
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-  
-class GoogleController extends Controller
+use Laravel\Socialite\Facades\Socialite;
+
+class FacebookController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function redirectToGoogle()
+    public function facebookpage()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('facebook')->redirect();
     }
-        
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function handleGoogleCallback()
+
+    public function facebookredirect()
     {
         try {
-      
-            $user = Socialite::driver('google')->user();
-       
-            $finduser = User::where('google_id', $user->id)->first();
-       
+        
+            $user = Socialite::driver('facebook')->user();
+         
+            $finduser = User::where('facebook_id', $user->id)->first();
+        
             if($finduser){
-       
+         
                 Auth::login($finduser);
-      
+        
                 return redirect()->intended('homepage');
-       
+         
             }else{
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'profile_photo_path' => $user->photo,
-                    'google_id'=> $user->id,
+                    'facebook_id'=> $user->id,
                     'password' => bcrypt('password')
                 ]);
-      
+        
                 Auth::login($newUser);
-      
+        
                 return redirect()->intended('homepage');
             }
-      
+        
         } catch (Exception $e) {
             dd($e->getMessage());
         }

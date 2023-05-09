@@ -1,5 +1,8 @@
 <?php
+
   
+
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -30,7 +33,11 @@ use App\Http\Controllers\PermissionsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-  
+
+
+Route::get('auth/facebook', [FacebookController::class, 'facebookpage']);
+Route::get('auth/facebook/callback', [FacebookController::class, 'facebookredirect']);
+
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
