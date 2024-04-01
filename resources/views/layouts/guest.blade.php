@@ -18,19 +18,17 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 		<script defer src="/assets/js/nav.js"></script> 
 
         <!-- Styles -->
 		<link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
 		<link href="{{asset('/assets/css/style.css')}}" rel="stylesheet">
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
     </head>
     <body>
-        <div class="min-h-screen bg-pattern">
-            <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
-                {{ $slot }}
-            </div>
+        <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
+            {{ $slot }}
         </div>
         @stack('modals')
         @livewireScripts
