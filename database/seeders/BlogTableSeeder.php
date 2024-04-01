@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Blog;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 use Faker\Factory as FakerFactory;
+use Illuminate\Support\Facades\File;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
 class BlogTableSeeder extends Seeder
@@ -16,6 +17,12 @@ class BlogTableSeeder extends Seeder
      */
     public function run()
     {
+        // Create blog-photos directory if it doesn't exist
+        $blogPhotosDirectory = public_path('storage/blog-photos');
+        if (!File::exists($blogPhotosDirectory)) {
+            File::makeDirectory($blogPhotosDirectory, 0755, true);
+        }
+        
         $users = User::all();
         $faker = FakerFactory::create();
 
@@ -23,36 +30,10 @@ class BlogTableSeeder extends Seeder
             $blog = new Blog();
             $blog->image = $faker->image('public/storage/blog-photos',400,300, null, false) ;
             $blog->title = $faker->sentence();
-            // $blog->content = $faker->paragraphs(10, true);
-            // $blog->content = $faker->text(1500);
             $blog->content = $faker->words(500, true);
             $blog->author_id = $users->random()->id;
             $blog->save();
         }
-        // Create three sample blog posts
-        // Blog::create([
-        //     'title' => 'First Blog Post',
-        //     'content' => 'This is the content of the first blog post.',
-        //     'author_id' => 1,
-        // ]);
-    
-        // Blog::create([
-        //     'title' => 'Second Blog Post',
-        //     'content' => 'This is the content of the second blog post.',
-        //     'author_id' => 2,
-        // ]);
-    
-        // Blog::create([
-        //     'title' => 'Third Blog Post',
-        //     'content' => 'This is the content of the third blog post.',
-        //     'author_id' => 1,
-        // ]);
-
-        // Blog::create([
-        //     'title' => '4th Blog Post',
-        //     'content' => 'This is the content of the 4th blog post.',
-        //     'author_id' => 2,
-        // ]);
     }
     
 }
