@@ -12,7 +12,7 @@ class StoreBlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Gate::allows('task_access');
+        return Gate::allows('blog_access');
     }
 
     /**
@@ -23,17 +23,9 @@ class StoreBlogRequest extends FormRequest
     public function rules(): array
     {
         return [		
-            'title'     => [
-                'string',
-                'required',
-            ],
-            'content'    => [
-                'string',
-                'required',
-            ],
-            'author_id' => [
-                'required',
-            ],
+            'title' => 'required|unique:blogs|min:10|max:255',
+            'content' =>'required|min:10',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ];
     }
 }

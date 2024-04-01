@@ -1,4 +1,9 @@
 <x-guest-layout>
+
+    @section('title')
+    | Register
+    @endsection
+
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -46,15 +51,15 @@
                 </div>
             @endif
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center justify-end mt-5">
                 <label for="dhaa" class="flex items-center">
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Already registered?') }}</span>
                 </label>   
             
                 <a href="{{ route('login') }}" class="text-sm">
-                    <span data-e2e="bottom-sign-up" class="ml-2 text-sm text-sky-500 dark:text-sky-400">
+                     <x-span data-e2e="bottom-sign-up" class="ml-2 text-sm">
                         Login
-                    </span>
+                    </x-span>
                 </a>
 
                 <x-button class="ml-4">

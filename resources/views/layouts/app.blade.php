@@ -6,41 +6,85 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-        <title>Title Here</title>
+        <title> BlogRealm | @yield('title')</title>
+		
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+		
+        {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+	
         <!-- Styles -->
+		<link href="{{asset('/assets/css/main.css')}}" rel="stylesheet">
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @livewire('navigation-menu')
+        <!-- Add the class "bg-pattern" to the div element -->
+		<div class="min-h-screen bg-pattern">
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+			<!-- Include the navigation menu component -->
+			@livewire('navigation-menu')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+			<!-- Page Heading -->
+			@if (isset($header))
+				<header class="text-center">
+					<div class="max-w-7xl mx-auto pt-4 mt-4 px-4 sm:px-6 lg:px-8">
+						{{ $header }}
+					</div>
+				</header>
+			@endif
 
+			<!-- Page Content -->
+			<main>
+				{{ $slot }}
+			</main>
+		</div>
+		
         @stack('modals')
 
         @livewireScripts
     </body>
+	{{-- <script>
+		$(document).ready(function() {
+			// Submit the search form when the search input field changes
+			$('#search-input').on('input', function() {
+				$('form#search-form').submit();
+			});
+		});
+	</script> --}}
+	
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
+	   <script>
+		$(document).ready(function () {
+		
+
+			$('.select-all').click(function () {
+				let $select2 = $(this).parent().siblings('.select2')
+				$select2.find('option').prop('selected', 'selected')
+				$select2.trigger('change')
+			})
+			$('.deselect-all').click(function () {
+				let $select2 = $(this).parent().siblings('.select2')
+				$select2.find('option').prop('selected', '')
+				$select2.trigger('change')
+			})
+
+			$('.select2').select2()
+
+			})
+
+	</script>
 </html>

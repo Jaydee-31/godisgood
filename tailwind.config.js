@@ -13,8 +13,15 @@ module.exports = {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+           
             },
         },
+    },
+
+    variants: {
+        background:['responsive', 'fucos', 'hover', 'active'],
+        fontSize:['responsive', 'hover'],
     },
 
     plugins: [

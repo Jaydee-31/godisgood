@@ -1,42 +1,58 @@
 <x-app-layout>
+    @section('title')
+    Edit Blog
+    @endsection
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Edit Task
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Edit Blog Post') }}
         </h2>
     </x-slot>
 
-    <div>
-        <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
-            <div class="mt-5 md:mt-0 md:col-span-2">
-                <form method="post" action="{{ route('blogs.update', $blog->id) }}">
-                    @csrf
-                    @method('PUT')
-                    <div class="shadow overflow-hidden sm:rounded-md">
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="title" class="block font-medium text-sm text-gray-700">Title</label>
-                            <input type="text" name="title" id="title" class="form-input rounded-md shadow-sm mt-1 block w-full"
+    <div class="max-w-4xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="mx-5 md:col-span-2">
+            <form action="{{ route('blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="shadow overflow-hidden rounded-xl sm:rounded-xl">
+                    <div class="p-5  bg-white dark:bg-gray-800 dark:bg-opacity-50">
+
+                        <div class="px-2 py-3 sm:px-5 sm:py-3">
+                            <x-label for="image" value="{{ __('Cover') }}" />
+                            <x-input type="file" name="image" id="image" class="mt-1 block w-full text-lg"
+                                    value="{{ old('image',  $blog->image) }}" />
+                            <x-input-error for="image" class="mt-1" />
+                        </div>
+  
+                        <div class="px-2 py-3 sm:px-5 sm:py-3">
+                            <x-label for="title" value="{{ __('Tittle') }}" />
+                            <x-input type="text" name="title" id="title" class="mt-1 block w-full"
                                    value="{{ old('title',  $blog->title) }}" />
-                            @error('title')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                            <x-input-error for="title" class="mt-1" />
                         </div>
 
-                        <div class="px-4 py-5 bg-white sm:p-6">
-                            <label for="content" class="block font-medium text-sm text-gray-700">Description</label>
-                            <textarea name="content" id="content" class="form-input rounded-md shadow-sm mt-1 block w-full">{{ old('content', $blog->content) }}</textarea>
-                            @error('content')
-                                <p class="text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                        <div class="px-2 py-3 sm:px-5 sm:py-3">                    
+                            <x-label for="content" value="{{ __('Content') }}" />
+                            <x-textarea name="content" id="content" class="mt-1 block w-full" rows="5">
+                                {{ old('content', $blog->content) }}</x-textarea>
+                            <x-input-error for="content" class="mt-1" />
                         </div>
+                    </div> 
 
-                        <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6">
-                            <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150">
-                                Edit
-                            </button>
-                        </div>
+                    <div class="flex items-center sm:justify-end justify-center px-10 py-5 bg-gray-50 dark:bg-gray-800 text-right ">
+                        <a href="{{ route('blogs.index') }}" class="text-sm">
+                            <span data-e2e="bottom-sign-up" class="ml-2 text-sm text-sky-500 dark:text-sky-400">
+                                Cancel
+                            </span>
+                        </a>
+        
+                        <x-button class="ml-5">
+                            {{ __('Save') }}
+                        </x-button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
+
 </x-app-layout>
